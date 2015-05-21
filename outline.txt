@@ -1,0 +1,36 @@
+Is pyenv installed?
+	no: install it
+
+Get Python version
+Is version installed?
+	no: install it.
+
+Set global name PY_VERSION
+
+Get Project name: PROJECT_NAME
+
+Create Directory with PROJECT_NAME
+
+Create pyenv virtualenv
+
+Change to PROJECT_NAME directory and make virtualenv name the local one.
+
+Get db type
+Get db host
+Get db name
+Get db port
+Get db user
+Get db password
+
+django-admin.py createproject PROJECT_NAME
+add database settings 
+
+Change to PROJECT_NAME
+mkdir templates
+mkdir static/[css && js && img]
+
+add template_dirs
+add staticfiles_dir
+
+makemigrations
+migrate
