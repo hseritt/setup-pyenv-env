@@ -1,4 +1,4 @@
-# Set up Python environment for directory with Pyenv
+# Set up Python environment for a directory with Pyenv
 
 ## How do I set up a Python environment with Pyenv?
 
@@ -63,7 +63,7 @@ Pyenv along with virtualenv allows you to better control your Python environment
 
 ### Scripts
 
-You can use 'django-setup.sh' to run the processes described above. It has been tested on these OS's:
+You can use 'django-setup.sh' to run the processes described above. The only difference is that it specifically sets up a Django project for you. It has been tested on these OS's:
 
 - Ubuntu 14.04
 - CentOS and RHEL 6
