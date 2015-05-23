@@ -5,7 +5,7 @@ centos_str7="Kernel"
 rhel_str="Red Hat"
 
 ubuntu_found_msg="Ubuntu Linux is detected."
-ubuntu_profile=".bashrc"
+ubuntu_profile=".bash_profile"
 ubuntu_install="apt-get install"
 
 rh_found_msg="CentOS or RHEL is detected."
@@ -30,15 +30,15 @@ function check_os {
 function handle_ubuntu {
 	echo $ubuntu_found_msg
 	sleep 2
-	profile=ubuntu_profile
-	sudo $ubuntu_install curl git-core gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev
+	profile=$ubuntu_profile
+	sudo $ubuntu_install curl git git-core gcc make zlib1g-dev libbz2-dev libreadline-dev libsqlite3-dev libssl-dev postgresql-dev libmysqld-dev mysql postgresql
 }
 
 function handle_redhat {
 	echo $rh_found_msg
 	sleep 2
 	profile=$rh_profile
-	sudo $rh_install curl git gcc make zlib-devel bzip2-devel bzip2-libs readline-devel sqlite-devel openssl-devel
+	sudo $rh_install curl git gcc make zlib-devel bzip2-devel bzip2-libs readline-devel sqlite-devel openssl-devel mysql-devel mysql-server-devel posgresql-devel mysql-server postgresql-server
 }
 
 function run_pyenv_installer {
@@ -236,6 +236,14 @@ function create_project {
 	set_staticfiles_dirs
 	set_db_settings
 
+	cp ../../setadminpw.py ../../setadminpw.py.backup
+	sed -e "5s/appname\.settings/${project_name}\.settings/g" ../../setadminpw.py > /tmp/setadminpw.py
+	cp /tmp/setadminpw.py ../../setadminpw.py
+	mkdir scripts
+	cp ../../*.sh ../../*.py scripts/.
+	mv ../../setadminpw.py.backup ../../setadminpw.py
+	rm -rf /tmp/setadmin.py
+
 	echo
 }
 
@@ -251,4 +259,14 @@ function get_end_msg {
 	echo "To start the development server you can run:"
 	echo "# ./manage.py runserver"
 	echo 
+}
+
+function check_env {
+	if [ "$dbtype" == "" ] || [ "$dbname" == "" ] || [ "$djadmin" == "" ]
+	then
+		echo "Your env.sh does not appear to be set up correctly."
+		echo "Please have a look and fill out the settings before running this script."
+		echo 'At a minimum, you must set $dbtype, $dbname and $djadmin.'
+		exit 1
+	fi
 }
